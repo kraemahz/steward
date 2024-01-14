@@ -1,32 +1,32 @@
 .. These are examples of badges you might want to add to your README:
    please update the URLs accordingly
 
-    .. image:: https://api.cirrus-ci.com/github/<USER>/waiter.svg?branch=main
+    .. image:: https://api.cirrus-ci.com/github/<USER>/steward.svg?branch=main
         :alt: Built Status
-        :target: https://cirrus-ci.com/github/<USER>/waiter
-    .. image:: https://readthedocs.org/projects/waiter/badge/?version=latest
+        :target: https://cirrus-ci.com/github/<USER>/steward
+    .. image:: https://readthedocs.org/projects/steward/badge/?version=latest
         :alt: ReadTheDocs
-        :target: https://waiter.readthedocs.io/en/stable/
-    .. image:: https://img.shields.io/coveralls/github/<USER>/waiter/main.svg
+        :target: https://steward.readthedocs.io/en/stable/
+    .. image:: https://img.shields.io/coveralls/github/<USER>/steward/main.svg
         :alt: Coveralls
-        :target: https://coveralls.io/r/<USER>/waiter
-    .. image:: https://img.shields.io/pypi/v/waiter.svg
+        :target: https://coveralls.io/r/<USER>/steward
+    .. image:: https://img.shields.io/pypi/v/steward.svg
         :alt: PyPI-Server
-        :target: https://pypi.org/project/waiter/
-    .. image:: https://img.shields.io/conda/vn/conda-forge/waiter.svg
+        :target: https://pypi.org/project/steward/
+    .. image:: https://img.shields.io/conda/vn/conda-forge/steward.svg
         :alt: Conda-Forge
-        :target: https://anaconda.org/conda-forge/waiter
-    .. image:: https://pepy.tech/badge/waiter/month
+        :target: https://anaconda.org/conda-forge/steward
+    .. image:: https://pepy.tech/badge/steward/month
         :alt: Monthly Downloads
-        :target: https://pepy.tech/project/waiter
+        :target: https://pepy.tech/project/steward
     .. image:: https://img.shields.io/twitter/url/http/shields.io.svg?style=social&label=Twitter
         :alt: Twitter
-        :target: https://twitter.com/waiter
+        :target: https://twitter.com/steward
 
 |
 
 ======
-waiter
+steward
 ======
 
 

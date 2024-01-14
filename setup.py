@@ -1,5 +1,5 @@
 """
-    Setup file for waiter.
+    Setup file for steward.
     Use setup.cfg to configure your project.
 """
 from setuptools import setup

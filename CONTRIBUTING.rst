@@ -2,7 +2,7 @@
 Contributing
 ============
 
-Welcome to ``waiter`` contributor's guide.
+Welcome to ``steward`` contributor's guide.
 
 This document focuses on getting any potential contributor familiarized
 with the development processes, but `other kinds of contributions`_ are also
@@ -21,7 +21,7 @@ guidelines.
 Issue Reports
 =============
 
-If you experience bugs or general issues with ``waiter``, please have a look
+If you experience bugs or general issues with ``steward``, please have a look
 on the `issue tracker`_. If you don't see anything useful there, please feel
 free to fire an issue report.
 
@@ -40,10 +40,10 @@ you help us to identify the root cause of the issue.
 Documentation Improvements
 ==========================
 
-You can help improve ``waiter`` docs by making them more readable and coherent, or
+You can help improve ``steward`` docs by making them more readable and coherent, or
 by adding missing information and correcting mistakes.
 
-``waiter`` documentation uses Sphinx_ as its main documentation compiler.
+``steward`` documentation uses Sphinx_ as its main documentation compiler.
 This means that the docs are kept in the same repository as the project code, and
 that any documentation update is done in the same way was a code contribution.
 
@@ -55,7 +55,7 @@ that any documentation update is done in the same way was a code contribution.
 
    .. tip::
       Please notice that the `GitHub web interface`_ provides a quick way of
-      propose changes in ``waiter``'s files. While this mechanism can
+      propose changes in ``steward``'s files. While this mechanism can
       be tricky for normal code contributions, it works perfectly fine for
       contributing to the docs, and can be quite handy.
 
@@ -106,8 +106,8 @@ This can easily be done via either |virtualenv|_::
 
 or Miniconda_::
 
-    conda create -n waiter python=3 six virtualenv pytest pytest-cov
-    conda activate waiter
+    conda create -n steward python=3 six virtualenv pytest pytest-cov
+    conda activate steward
 
 Clone the repository
 --------------------
@@ -117,8 +117,8 @@ Clone the repository
    page. This creates a copy of the code under your account on |the repository service|.
 #. Clone this copy to your local disk::
 
-    git clone git@github.com:YourLogin/waiter.git
-    cd waiter
+    git clone git@github.com:YourLogin/steward.git
+    cd steward
 
 #. You should run::
 
@@ -133,7 +133,7 @@ Clone the repository
     pip install pre-commit
     pre-commit install
 
-   ``waiter`` comes with a lot of hooks configured to automatically help the
+   ``steward`` comes with a lot of hooks configured to automatically help the
    developer to check the code being written.
 
 Implement your changes
@@ -253,14 +253,9 @@ Maintainer tasks
 Releases
 --------
 
-.. todo:: This section assumes you are using PyPI to publicly release your package.
-
-   If instead you are using a different/private package index, please update
-   the instructions accordingly.
-
 If you are part of the group of maintainers and have correct user permissions
 on PyPI_, the following steps can be used to release a new version for
-``waiter``:
+``steward``:
 
 #. Make sure all unit tests are successful.
 #. Tag the current commit on the main branch with a release tag, e.g., ``v1.2.3``.
@@ -289,8 +284,8 @@ on PyPI_, the following steps can be used to release a new version for
 .. |the repository service| replace:: GitHub
 .. |contribute button| replace:: "Create pull request"
 
-.. _repository: https://github.com/<USERNAME>/waiter
-.. _issue tracker: https://github.com/<USERNAME>/waiter/issues
+.. _repository: https://github.com/kraemahz/steward
+.. _issue tracker: https://github.com/kraemahz/steward/issues
 .. <-- end -->
 
 
