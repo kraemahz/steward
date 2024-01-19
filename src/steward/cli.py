@@ -1,10 +1,14 @@
 import argparse
+import json
 import logging
 import sys
+import time
 
-from flask import Flask, render_template
-from flask_socketio import SocketIO
+from queue import Queue
+
 from steward import __version__
+from steward.event import PrismConfig, connect_to_event_listener
+from steward.voice import VoiceThread
 
 __author__ = "Teague Lasser"
 __copyright__ = "Teague Lasser"
@@ -13,17 +17,12 @@ __license__ = "MIT"
 _logger = logging.getLogger(__name__)
 
 
-def parse_args(args):
-    """Parse command line parameters
-
-    Args:
-      args (List[str]): command line parameters as list of strings
-          (for example  ``["--help"]``).
-
-    Returns:
-      :obj:`argparse.Namespace`: command line parameters namespace
-    """
-    parser = argparse.ArgumentParser(description="Just a Fibonacci demonstration")
+def parse_args(args) -> argparse.Namespace:
+    """Parse command line parameters"""
+    parser = argparse.ArgumentParser(description="")
+    parser.add_argument(dest="config",
+                        help="Configuration file",
+                        type=argparse.FileType('r'))
     parser.add_argument(
         "--version",
         action="version",
@@ -48,42 +47,32 @@ def setup_logging(loglevel):
     """
     logformat = "[%(asctime)s] %(levelname)s:%(name)s:%(message)s"
     logging.basicConfig(
-        level=loglevel, stream=sys.stdout, format=logformat, datefmt="%Y-%m-%d %H:%M:%S"
+        level=loglevel,
+        stream=sys.stdout,
+        format=logformat,
+        datefmt="%Y-%m-%d %H:%M:%S"
     )
 
 
 def main(args):
-    """Main function
-
-    Instead of returning the value from :func:`fib`, it prints the result to the
-    ``stdout`` in a nicely formatted message.
-    Args:
-      args (List[str]): command line parameters as list of strings
-    """
+    """Main function"""
     args = parse_args(args)
     setup_logging(args.loglevel)
+    config = PrismConfig(**json.load(args.config))
+    queue = Queue()
+    connect_to_event_listener(config, queue)
+    thread = VoiceThread(queue)
+    thread.start()
 
-    app = Flask(__name__)
-    app.config["SECRET_KEY"] = "abracadabrahocuspocus"
-    socketio = SocketIO(app)
-
-    @app.route('/')
-    def index():
-        return render_template('index.html')
-
-    @socketio.on('connect')
-    def connect():
-        print("Client connected")
-
-    @socketio.on('disconnect')
-    def disconnect():
-        print("Client disconnected")
-
-    @socketio.on('audio')
-    def handle_audio(audio_data):
-        print("Received audio data")
-
-    socketio.run(app, host='localhost', port=5060)
+    try:
+        while True:
+            time.sleep(360)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        print("Performing job cleanup...")
+        queue.put(None)
+        thread.join()
 
 
 def run():
