@@ -1,0 +1,6 @@
+{
+    "addr": "localhost:5050",
+    "events": [
+        "urn:subseq.io:voice:audio:request"
+    ]
+}

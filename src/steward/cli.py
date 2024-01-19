@@ -60,8 +60,8 @@ def main(args):
     setup_logging(args.loglevel)
     config = PrismConfig(**json.load(args.config))
     queue = Queue()
-    connect_to_event_listener(config, queue)
-    thread = VoiceThread(queue)
+    client = connect_to_event_listener(config, queue)
+    thread = VoiceThread(client, queue)
     thread.start()
 
     try:
