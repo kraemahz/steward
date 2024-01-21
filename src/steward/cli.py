@@ -4,11 +4,12 @@ import logging
 import sys
 import time
 
+from dataclasses import dataclass
 from queue import Queue
 
 from steward import __version__
 from steward.event import PrismConfig, connect_to_event_listener
-from steward.voice import VoiceThread
+from steward.voice import VoiceThread, WhisperConfig
 
 __author__ = "Teague Lasser"
 __copyright__ = "Teague Lasser"
@@ -54,14 +55,24 @@ def setup_logging(loglevel):
     )
 
 
+@dataclass
+class Config:
+    prism: PrismConfig
+    whisper: WhisperConfig
+
+    def __init__(self, prism, whisper):
+        self.prism = PrismConfig(**prism)
+        self.whisper = WhisperConfig(**whisper)
+
+
 def main(args):
     """Main function"""
     args = parse_args(args)
     setup_logging(args.loglevel)
-    config = PrismConfig(**json.load(args.config))
+    config = Config(**json.load(args.config))
     queue = Queue()
-    client = connect_to_event_listener(config, queue)
-    thread = VoiceThread(client, queue)
+    client = connect_to_event_listener(config.prism, queue)
+    thread = VoiceThread(client, queue, config.whisper)
     thread.start()
 
     try:

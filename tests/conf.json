@@ -1,6 +1,12 @@
 {
-    "addr": "localhost:5050",
-    "events": [
-        "urn:subseq.io:voice:audio:request"
-    ]
+    "prism": {
+        "addr": "127.0.0.1:5050",
+        "events": [
+            "urn:subseq.io:voice:audio:request"
+        ]
+    },
+    "whisper": {
+        "device": "cpu",
+        "model": "base.en"
+    }
 }
