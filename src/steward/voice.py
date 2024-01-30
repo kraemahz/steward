@@ -8,14 +8,7 @@ from queue import Queue
 import cbor2
 import numpy as np
 from prism import Client
-from scipy.io.wavfile import write
-from whisper import (
-    DecodingOptions,
-    decode,
-    load_model,
-    log_mel_spectrogram,
-    pad_or_trim,
-)
+from whisper import load_model
 from .event import push_job_result
 
 _log = logging.getLogger(__name__)
