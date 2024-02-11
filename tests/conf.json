@@ -6,7 +6,7 @@
         ]
     },
     "whisper": {
-        "device": "cpu",
+        "device": "cuda",
         "model": "base.en"
     }
 }

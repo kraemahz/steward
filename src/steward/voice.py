@@ -1,14 +1,15 @@
 import logging
+import os
+import subprocess
+import tempfile
 
 from dataclasses import dataclass
 from threading import Thread
-from typing import List
 from queue import Queue
 
 import cbor2
-import numpy as np
 from prism import Client
-from whisper import load_model
+from whisper import load_model, load_audio
 from .event import push_job_result
 
 _log = logging.getLogger(__name__)
@@ -23,7 +24,7 @@ class WhisperConfig:
 @dataclass
 class SpeechToTextRequest:
     conversation_id: str
-    payload: List[float]
+    payload: bytes
     count: int
     beam: str
     finalize: bool
@@ -35,6 +36,20 @@ class SpeechToTextResponse:
     count: int
     payload: str
     finalized: bool
+
+
+def run_ffmpeg(input_file):
+    output_file = tempfile.mktemp() + '.wav'
+    subprocess.call([
+        "ffmpeg",
+        "-i", input_file,
+        "-ar", "16000",
+        output_file],
+        stderr=subprocess.PIPE,
+        stdout=subprocess.PIPE)
+    data = load_audio(output_file)
+    os.unlink(output_file)
+    return data
 
 
 class VoiceThread(Thread):
@@ -57,10 +72,16 @@ class VoiceThread(Thread):
             except TypeError:
                 _log.error("Could not decode to request")
                 continue
+            _log.info("Received request")
 
-            payload = np.array(request.payload, dtype=np.float32)
+            with tempfile.NamedTemporaryFile() as f:
+                f.write(bytes(request.payload))
+                f.flush()
+                payload = run_ffmpeg(f.name)
+
             transcribed = self.model.transcribe(payload)
             text = transcribed['text']
+            _log.info("Sending back: %s", text)
             response = SpeechToTextResponse(
                 request.conversation_id,
                 request.count,
