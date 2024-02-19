@@ -39,21 +39,18 @@ class SpeechToTextResponse:
 
 
 def run_ffmpeg(input_file):
-    output_file = tempfile.mktemp() + '.wav'
-    subprocess.call([
-        "ffmpeg",
-        "-i", input_file,
-        "-ar", "16000",
-        output_file],
+    output_file = tempfile.mktemp() + ".wav"
+    subprocess.call(
+        ["ffmpeg", "-i", input_file, "-ar", "16000", output_file],
         stderr=subprocess.PIPE,
-        stdout=subprocess.PIPE)
+        stdout=subprocess.PIPE,
+    )
     data = load_audio(output_file)
     os.unlink(output_file)
     return data
 
 
 class VoiceThread(Thread):
-
     def __init__(self, client: Client, queue: Queue, config: WhisperConfig):
         super().__init__()
         self.client = client
@@ -80,12 +77,9 @@ class VoiceThread(Thread):
                 payload = run_ffmpeg(f.name)
 
             transcribed = self.model.transcribe(payload)
-            text = transcribed['text']
+            text = transcribed["text"]
             _log.info("Sending back: %s", text)
             response = SpeechToTextResponse(
-                request.conversation_id,
-                request.count,
-                text,
-                request.finalize
+                request.conversation_id, request.count, text, request.finalize
             )
             push_job_result(self.client, response, request.beam)

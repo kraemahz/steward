@@ -21,9 +21,9 @@ _logger = logging.getLogger(__name__)
 def parse_args(args) -> argparse.Namespace:
     """Parse command line parameters"""
     parser = argparse.ArgumentParser(description="")
-    parser.add_argument(dest="config",
-                        help="Configuration file",
-                        type=argparse.FileType('r'))
+    parser.add_argument(
+        dest="config", help="Configuration file", type=argparse.FileType("r")
+    )
     parser.add_argument(
         "--version",
         action="version",
@@ -48,10 +48,7 @@ def setup_logging(loglevel):
     """
     logformat = "[%(asctime)s] %(levelname)s:%(name)s:%(message)s"
     logging.basicConfig(
-        level=loglevel,
-        stream=sys.stdout,
-        format=logformat,
-        datefmt="%Y-%m-%d %H:%M:%S"
+        level=loglevel, stream=sys.stdout, format=logformat, datefmt="%Y-%m-%d %H:%M:%S"
     )
 
 
