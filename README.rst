@@ -30,7 +30,4 @@ steward
 ======
 
 
-    Add a short description here!
-
-
-A longer description of your project goes here...
+    Steward is a wrapper around OpenAI's whisper package for performing STT within prism. It requires ffmpeg.
