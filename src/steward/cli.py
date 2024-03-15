@@ -83,7 +83,7 @@ def main(args):
         thread.join()
 
 
-def run():
+def cli():
     """Calls :func:`main` passing the CLI arguments extracted from :obj:`sys.argv`
 
     This function can be used as entry point to create console scripts with setuptools.
@@ -92,4 +92,4 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    cli()

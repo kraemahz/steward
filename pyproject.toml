@@ -2,7 +2,55 @@
 requires = ["setuptools>=46.1.0", "setuptools_scm[toml]>=5"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools_scm]
-# For smarter version schemes and other configuration options,
-# check out https://github.com/pypa/setuptools_scm
-version_scheme = "no-guess-dev"
+[project]
+name = "steward"
+description = "Whisper conversation server"
+authors = [{name = "Teague Lasser", email = "teague@subseq.io"}]
+license = {file = "LICENSE.txt"}
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: Implementation :: CPython",
+]
+version = "0.1.0"
+dependencies = [
+    "cbor2",
+    "openai-whisper",
+    "prism-client==0.2.1",
+    "numpy"
+]
+
+[project.optional-dependencies]
+testing = [
+    "setuptools",
+    "pytest",
+    "pytest-cov",
+]
+[project.scripts]
+steward = "steward.cli:cli"
+
+[project.urls]
+Homepage = 'https://github.com/kraemahz/steward'
+Source = 'https://github.com/kraemahz/steward'
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["steward"]
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = ["E203", "W503"]
+exclude = [
+    ".tox",
+    "build",
+    "dist",
+    ".eggs",
+    "docs/conf.py",
+]
+
+[tool.pytest.ini_options]
+norecursedirs = [
+    "dist",
+    "build",
+    ".tox",
+]
+testpaths = ["tests"]
