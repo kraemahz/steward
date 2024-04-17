@@ -59,6 +59,7 @@ class VoiceThread(Thread):
         self.model = load_model(config.model)
 
     def run(self):
+        _log.info("Steward has started")
         while True:
             data = self.queue.get()
             if data is None:

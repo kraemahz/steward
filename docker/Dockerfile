@@ -13,6 +13,8 @@ RUN git clone https://github.com/capnproto/capnproto.git \
     && make -j$(nproc) \
     && make install
 
+RUN apt-get install -y ffmpeg
+
 RUN mkdir /opt/steward
 COPY ./* /opt/steward
 COPY src /opt/steward/src
